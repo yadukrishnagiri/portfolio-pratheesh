@@ -18,4 +18,4 @@ Explain how home physiotherapy may help, outline the visit journey and make conf
 The public name is Pratheesh. The site is responsive and accessible. Supplied clinical topics are draft until Pratheesh confirms training, insurance and availability. No fabricated credentials, outcomes, testimonials, booking destination, service area, fees or contact details. Generated photos are illustrative and do not represent Pratheesh or his patients.
 
 ## Evidence on Hand
-The user confirmed UK home visits, a one-page format and generic home-care imagery without identifiable faces. A generic UK home physiotherapy content package was supplied. Practice-specific details are still pending.
+The user confirmed UK home visits, a one-page format and generic home-care imagery without identifiable faces. A generic UK home physiotherapy content package was supplied. Liverpool, London and Brighton were supplied as example map locations; they are not confirmed service areas. Practice-specific details are still pending.

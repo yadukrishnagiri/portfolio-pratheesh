@@ -36,9 +36,11 @@ components:
 
 ## Overview
 
-The site is a quiet, modern information page for people considering physiotherapy at home. White and light grey surfaces, charcoal text, thin rules and a muted eucalyptus accent create a clear reading order. DM Sans is the only typeface. Photographs show illustrative home-care scenes with faces outside the frame; they do not depict Pratheesh or actual patients.
+The site is a quiet, modern information page for people considering physiotherapy at home. White and light grey surfaces, charcoal text, thin rules and a muted eucalyptus accent create a clear reading order. DM Sans is the only typeface. The hero photograph shows an illustrative home-care scene with faces outside the frame; it does not depict Pratheesh or actual patients.
 
 The hero gives one clear proposition and points to services and the visit process. Service information is grouped by need and expands on demand, so the long clinical list remains manageable. Draft and pending labels distinguish supplied generic copy from confirmed practice details. Contact details have no invented destinations.
+
+The service-area section replaces the broad audience section. A map and typographic place directory share the same three example locations; selecting a row focuses the map. The map tiles use a restrained greyscale treatment, while the full disclaimer and OpenStreetMap credit remain visible.
 
 Motion is limited to small hover and disclosure transitions, with a reduced-motion override. On narrow screens, the content becomes a single column and the navigation becomes an accessible toggle.
 
@@ -59,7 +61,7 @@ DM Sans provides a direct, modern voice. Large headings carry the hierarchy; exp
 
 ## Layout
 
-Desktop sections pair concise introductions with detailed content. Mobile uses a single column, full-width imagery and stacked disclosures.
+Desktop sections pair concise introductions with detailed content. The area directory sits beside the map. Mobile uses a single column with the map before the location rows.
 
 ## Components
 
