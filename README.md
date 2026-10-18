@@ -1,6 +1,8 @@
 # Pratheesh Physiotherapy
 
-A local React portfolio prototype for Pratheesh. It is intentionally **not ready for public launch** until Pratheesh supplies and approves his biography, qualifications, services, case material, portrait, contact details, and clinic location.
+A React portfolio prototype for Pratheesh. The current [Vercel site](https://portfolio-pratheesh-kappa.vercel.app/) is public but contains clearly marked placeholders. Pratheesh's biography, qualifications, services, case material, portrait, contact details, and clinic location need approval before the site is presented as a finished professional portfolio.
+
+The source is hosted in the [GitHub repository](https://github.com/yadukrishnagiri/portfolio-pratheesh). Pushing to `main` triggers a production deployment on Vercel.
 
 ## Run locally
 

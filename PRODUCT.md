@@ -6,7 +6,7 @@
 web
 
 ## Stack
-Vite, React, and TypeScript. Local only; no deployment target selected.
+Vite, React, and TypeScript. Hosted on Vercel from the `main` branch of `yadukrishnagiri/portfolio-pratheesh`.
 
 ## Users
 People considering physiotherapy with Pratheesh who want to understand his services and approach, review his work, and find a way to contact him.
