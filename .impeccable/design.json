@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T00:00:00Z",
+  "title": "Design System: Pratheesh Physiotherapy",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "text", "displayName": "Charcoal" },
+      "light": { "role": "surface", "displayName": "Soft Grey" },
+      "accent": { "role": "accent", "displayName": "Muted Eucalyptus" }
+    },
+    "breakpoints": [
+      { "name": "mobile", "value": "620px" },
+      { "name": "tablet", "value": "880px" }
+    ],
+    "motion": [
+      { "name": "state", "value": "200ms ease", "purpose": "Hover and disclosure feedback, removed for reduced motion." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary navigation to a confirmed content section.",
+      "html": "<a class=\"ds-button-primary\" href=\"#services\">Explore services</a>",
+      "css": ".ds-button-primary{display:inline-flex;background:var(--ink);color:#fff;padding:14px 19px;font:700 13px 'DM Sans',sans-serif;text-decoration:none}.ds-button-primary:hover{background:#3c5550}.ds-button-primary:focus-visible{outline:3px solid #607a73;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Care that fits real life",
+    "overview": "A calm, modern information page that makes a long clinical content set manageable without claiming unverified practice details.",
+    "keyCharacteristics": ["White and grey surfaces", "Charcoal typography", "Muted eucalyptus accent", "Honest pending labels"],
+    "rules": [],
+    "dos": ["Keep service information scannable", "Label unconfirmed information"],
+    "donts": ["Invent credentials or contact details", "Present generated people as Pratheesh or his patients"]
+  }
+}

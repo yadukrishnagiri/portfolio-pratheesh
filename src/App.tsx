@@ -1,182 +1,78 @@
-import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Mail, MapPin, Menu, MessageCircle, MoveUpRight, X } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MapPin, Menu, Phone, X } from 'lucide-react'
 
-const services = [
-  { number: '01', title: 'Musculoskeletal care', description: 'Support for everyday aches, joint concerns, and comfortable movement.' },
-  { number: '02', title: 'Sports rehabilitation', description: 'A considered path back to the activities and sports you enjoy.' },
-  { number: '03', title: 'Posture & movement', description: 'Explore how you move and build habits that support daily life.' },
-  { number: '04', title: 'Injury prevention', description: 'Make space for strength, resilience, and confidence in motion.' },
+const serviceGroups = [
+  { title: 'Pain, joints & movement', intro: 'Support for movement that has become painful, stiff or difficult.', items: [
+    ['Musculoskeletal physiotherapy', 'Assessment-led support for muscles, joints and soft tissues, including strains, sprains, arthritis-related stiffness and weakness. A plan may include graded exercise, movement practice and self-management advice.'],
+    ['Back pain & spinal rehabilitation', 'A practical approach to back pain, stiffness and reduced mobility, focused on comfortable movement, strength and confidence with everyday activities.'],
+    ['Hip pain & rehabilitation', 'Movement and strengthening work for hip stiffness, pain affecting walking or standing, and recovery after injury or surgery, subject to clinical guidance.'],
+    ['Knee pain & rehabilitation', 'Support for knee stiffness, weakness and walking or stair difficulties, including rehabilitation after knee replacement where appropriate.'],
+    ['Shoulder, arm & elbow rehabilitation', 'Graded movement and exercise for upper-limb pain, stiffness or weakness that affects reaching, dressing, lifting and other daily tasks.'],
+  ] },
+  { title: 'Recovery after surgery or illness', intro: 'Rebuild strength and confidence in the environment where daily life happens.', items: [
+    ['Hip replacement rehabilitation', 'Practice with transfers, walking, stairs and daily routines following a hip replacement, in line with the surgical team’s precautions and weight-bearing advice.'],
+    ['Knee replacement rehabilitation', 'An individual plan may include prescribed movement, progressive strengthening, walking practice and functional training after knee replacement.'],
+    ['Fracture rehabilitation', 'Movement, strength, balance and walking work after a fracture when healing and medical instructions permit.'],
+    ['After a hospital stay', 'Support for reduced stamina, weakness, balance and everyday mobility after illness, surgery or a period of inactivity.'],
+  ] },
+  { title: 'Mobility & neurological support', intro: 'Care shaped around safety, independence and each person’s abilities.', items: [
+    ['Stroke rehabilitation', 'Task-specific movement, walking, balance and strength practice may help people work towards personal goals following a stroke.'],
+    ['Mobility support for dementia', 'Familiar routines, clear instructions and adapted activity may support mobility and everyday function for people living with dementia or Alzheimer’s disease.'],
+    ['Balance, walking & falls prevention', 'Individualised balance, leg-strength and walking practice, including the use of mobility aids where appropriate.'],
+    ['Functional exercise & carer guidance', 'Practice for daily movements such as sitting to standing, transfers and stairs, with guidance for family or carers when suitable and agreed.'],
+  ] },
 ]
 
 const steps = [
-  { number: '01', title: 'Listen first', description: 'Start with your story, your goals, and what movement means to you.' },
-  { number: '02', title: 'Understand movement', description: 'Explore the way your body moves and what may be holding you back.' },
-  { number: '03', title: 'Move forward', description: 'Build a practical plan that can evolve with your progress.' },
+  ['Get in touch', 'Share what is happening, what feels difficult and what you would like help with.'],
+  ['Initial assessment', 'Movement, strength, balance and everyday activities are considered alongside your goals.'],
+  ['A plan for you', 'Your rehabilitation plan is shaped around your abilities, home and medical guidance.'],
+  ['Treatment & review', 'Practice, education and progress reviews help the plan adapt as you move forward.'],
 ]
 
-function Brand({ light = false }: { light?: boolean }) {
-  return (
-    <a className={`brand ${light ? 'brand-light' : ''}`} href="#top" aria-label="Pratheesh Physiotherapy, back to top">
-      <span className="brand-mark" aria-hidden="true"><span /><span /><span /></span>
-      <span className="brand-text"><strong>Pratheesh</strong><small>Physiotherapy</small></span>
-    </a>
-  )
+const faqs = [
+  ['What is home physiotherapy?', 'It is physiotherapy provided in your own home. Assessment and rehabilitation can focus on the movements and activities that matter in your daily surroundings.'],
+  ['What happens at the first visit?', 'An initial visit typically explores your concerns, relevant medical history, movement, mobility and goals. Any treatment plan should be tailored after assessment.'],
+  ['How many visits will I need?', 'This depends on your needs, goals and response to rehabilitation. A suitable plan can be discussed after an individual assessment.'],
+  ['What should I prepare?', 'If available, have relevant medical or discharge information, operation or fracture instructions, a medication list and any mobility aids ready. Comfortable clothing that allows movement can help.'],
+]
+
+function Brand() {
+  return <a className="brand" href="#top" aria-label="Pratheesh Physiotherapy, back to top"><span className="brand-icon" aria-hidden="true">P<span>.</span></span><span className="brand-name">Pratheesh <small>Physiotherapy at home</small></span></a>
 }
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>('[data-reveal]')
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible')
-          observer.unobserve(entry.target)
-        }
-      })
-    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' })
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
-  }, [])
-
   const closeMenu = () => setMenuOpen(false)
 
-  return (
-    <div id="top" className="site-shell">
-      <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header">
-        <div className="container header-inner">
-          <Brand />
-          <nav className={`main-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation" id="main-nav">
-            <a href="#services" onClick={closeMenu}>Services</a>
-            <a href="#about" onClick={closeMenu}>About</a>
-            <a href="#approach" onClick={closeMenu}>Approach</a>
-            <a href="#work" onClick={closeMenu}>Work</a>
-            <a href="#contact" onClick={closeMenu}>Contact</a>
-          </nav>
-          <a className="header-cta" href="#contact">Get in touch <ArrowUpRight size={16} strokeWidth={1.8} /></a>
-          <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="main-nav" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X size={23} /> : <Menu size={23} />}
-          </button>
-        </div>
-      </header>
+  return <div id="top" className="site-shell">
+    <a className="skip-link" href="#main">Skip to content</a>
+    <header className="site-header"><div className="container header-inner">
+      <Brand />
+      <nav id="main-nav" className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation"><a href="#services" onClick={closeMenu}>Services</a><a href="#how-it-works" onClick={closeMenu}>How it works</a><a href="#about" onClick={closeMenu}>About</a><a href="#faqs" onClick={closeMenu}>FAQs</a><a href="#contact" onClick={closeMenu}>Contact</a></nav>
+      <a className="header-action" href="#contact">Contact details <ArrowUpRight size={16} aria-hidden="true" /></a>
+      <button className="menu-toggle" type="button" aria-controls="main-nav" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={23} /> : <Menu size={23} />}</button>
+    </div></header>
 
-      <main id="main">
-        <section className="hero container" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <p className="hero-intro">Care for the way you move</p>
-            <h1 id="hero-title">Move with <em>confidence.</em></h1>
-            <p className="hero-description">Physiotherapy with room to listen, understand, and help you move toward what matters to you.</p>
-            <div className="hero-actions">
-              <a className="button button-dark" href="#services">Explore services <ArrowUpRight size={18} strokeWidth={1.8} /></a>
-              <a className="text-link" href="#contact">Get in touch <ArrowRight size={17} strokeWidth={1.8} /></a>
-            </div>
-            <div className="hero-footnote"><span className="footnote-line" /> A more thoughtful way forward</div>
-          </div>
-          <div className="hero-visual" aria-label="Portrait space reserved for Pratheesh's photograph">
-            <div className="orbit orbit-one" aria-hidden="true" />
-            <div className="orbit orbit-two" aria-hidden="true" />
-            <div className="portrait-frame">
-              <div className="portrait-placeholder">
-                <span className="portrait-symbol" aria-hidden="true"><span /></span>
-                <span>Portrait to be added</span>
-              </div>
-              <span className="portrait-caption">Pratheesh <i /> Physiotherapist</span>
-            </div>
-            <span className="visual-note">Movement is personal.<br />Your care should be too.</span>
-          </div>
-          <a className="scroll-cue" href="#services" aria-label="Scroll to services"><ArrowDown size={17} strokeWidth={1.6} /></a>
-        </section>
+    <main id="main">
+      <section className="hero container" aria-labelledby="hero-title"><div className="hero-copy"><h1 id="hero-title">Physiotherapy, in the comfort of <span>your home.</span></h1><p>Personalised support to help you move more comfortably, rebuild confidence and return to the everyday things that matter.</p><div className="hero-actions"><a className="button button-primary" href="#services">Explore home physiotherapy <ArrowRight size={18} aria-hidden="true" /></a><a className="quiet-link" href="#how-it-works">How visits work <ArrowDown size={17} aria-hidden="true" /></a></div></div><div className="hero-image-wrap"><img src="/images/home-physiotherapy.jpg" alt="Illustrative scene of a seated mobility exercise at home, with faces outside the frame" width="1774" height="887" /><span className="image-note">Illustrative home-care imagery</span></div></section>
 
-        <section className="services-section" id="services" aria-labelledby="services-title">
-          <div className="container">
-            <div className="section-heading services-heading" data-reveal>
-              <div><span className="section-index">What I can help with</span><h2 id="services-title">Care that meets you<br /><em>where you are.</em></h2></div>
-              <p>Every person and every goal is different. These are areas of care to explore together. Final services will be confirmed by Pratheesh.</p>
-            </div>
-            <div className="service-list">
-              {services.map((service) => <a href="#contact" className="service-row" key={service.number} data-reveal>
-                <span className="service-number">{service.number}</span>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <span className="service-arrow" aria-hidden="true"><ArrowUpRight size={22} strokeWidth={1.4} /></span>
-              </a>)}
-            </div>
-            <p className="placeholder-note">Service descriptions are illustrative placeholders and will be reviewed before publication.</p>
-          </div>
-        </section>
+      <section className="value-section" aria-labelledby="value-title"><div className="container value-layout"><div className="value-heading"><h2 id="value-title">Care that fits real life.</h2><p>Home visits bring rehabilitation into the space where you move every day.</p></div><div className="value-points"><div><Check size={20} aria-hidden="true" /><span><strong>Comfort and convenience</strong>Make progress without travelling to a clinic.</span></div><div><Check size={20} aria-hidden="true" /><span><strong>Personal to you</strong>Work towards goals that make a difference at home.</span></div><div><Check size={20} aria-hidden="true" /><span><strong>Practical movement</strong>Practice walking, stairs and daily routines where you use them.</span></div></div></div></section>
 
-        <section className="about-section container" id="about" aria-labelledby="about-title">
-          <div className="about-art" aria-hidden="true" data-reveal>
-            <div className="about-art-inner"><div className="motion-line motion-line-one" /><div className="motion-line motion-line-two" /><div className="motion-line motion-line-three" /><span className="about-art-word">move</span></div>
-            <span className="about-art-caption">A space for movement and possibility</span>
-          </div>
-          <div className="about-copy" data-reveal>
-            <span className="section-index">Meet Pratheesh</span>
-            <h2 id="about-title">A human approach to <em>feeling better.</em></h2>
-            <p>This is where Pratheesh’s story will live: his experience, qualifications, philosophy of care, and the people he works with.</p>
-            <p className="about-muted">Until those details are provided, this space stays intentionally open. The aim is to share a genuine introduction in his own words.</p>
-            <a href="#contact" className="text-link">Contact Pratheesh <ArrowRight size={17} strokeWidth={1.8} /></a>
-          </div>
-        </section>
+      <section className="services-section section-pad" id="services" aria-labelledby="services-title"><div className="container"><div className="section-intro"><div><h2 id="services-title">What home physiotherapy can support</h2><p>From pain and joint concerns to rehabilitation after surgery, care starts with understanding your needs.</p></div><span className="draft-pill">Draft service information</span></div><p className="draft-note">The areas below come from the supplied content and are awaiting confirmation against Pratheesh’s training, insurance and available services. They are not a booking menu.</p><div className="service-groups">{serviceGroups.map(group => <div className="service-group" key={group.title}><div className="group-head"><h3>{group.title}</h3><p>{group.intro}</p></div><div className="group-items">{group.items.map(([title, detail]) => <details className="service-detail" key={title}><summary><span>{title}</span><ChevronDown size={20} aria-hidden="true" /></summary><div className="detail-body"><p>{detail}</p><span>Service details pending confirmation</span></div></details>)}</div></div>)}</div></div></section>
 
-        <section className="approach-section" id="approach" aria-labelledby="approach-title">
-          <div className="container approach-inner">
-            <div className="approach-lead" data-reveal>
-              <span className="section-index">The approach</span>
-              <h2 id="approach-title">Better movement begins with <em>understanding.</em></h2>
-              <p>A simple framework for the care journey. Pratheesh’s actual clinical process will replace this illustrative outline.</p>
-            </div>
-            <div className="approach-steps">
-              {steps.map((step) => <div className="approach-step" key={step.number} data-reveal>
-                <span>{step.number}</span><div><h3>{step.title}</h3><p>{step.description}</p></div><MoveUpRight size={20} strokeWidth={1.4} aria-hidden="true" />
-              </div>)}
-            </div>
-          </div>
-          <div className="approach-rings" aria-hidden="true"><i /><i /><i /></div>
-        </section>
+      <section className="process-section section-pad" id="how-it-works" aria-labelledby="process-title"><div className="container process-layout"><div className="process-lead"><h2 id="process-title">A clear path forward, one step at a time.</h2><p>Here is how a home physiotherapy journey may work. Pratheesh’s exact booking and clinical process will be confirmed before launch.</p><a className="quiet-link" href="#contact">Practical details <ArrowRight size={17} aria-hidden="true" /></a></div><ol className="steps">{steps.map(([title, text], i) => <li key={title}><span className="step-number">{String(i + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></div></section>
 
-        <section className="work-section container" id="work" aria-labelledby="work-title">
-          <div className="work-heading" data-reveal>
-            <span className="section-index">Selected work</span>
-            <h2 id="work-title">Stories of progress,<br /><em>when they’re ready.</em></h2>
-            <p>This area is reserved for verified case studies, projects, or educational resources that Pratheesh chooses to share.</p>
-          </div>
-          <div className="work-placeholder" data-reveal>
-            <div className="work-placeholder-graphic" aria-hidden="true"><span /><span /><span /></div>
-            <div><span className="placeholder-label">Coming later</span><h3>Real work belongs here.</h3><p>Case details and outcomes will only appear with accurate information and appropriate permission.</p></div>
-            <ArrowUpRight size={24} strokeWidth={1.3} aria-hidden="true" />
-          </div>
-        </section>
+      <section className="audience-section section-pad" aria-labelledby="audience-title"><div className="container audience-layout"><div className="audience-image"><img src="/images/home-mobility.jpg" alt="Illustrative scene of supported movement beside a chair at home, with faces outside the frame" width="1024" height="1536" loading="lazy" /></div><div className="audience-copy"><h2 id="audience-title">Support for the moments that matter.</h2><p>Home physiotherapy may suit people who find travel difficult or want to practise movement in familiar surroundings.</p><ul><li>Older adults working on mobility and confidence</li><li>People recovering after surgery, fracture or a hospital stay</li><li>People managing pain, stiffness or reduced strength</li><li>People who need help with balance, walking or everyday tasks</li></ul><p className="small-print">Suitability and specific services depend on an individual assessment and confirmed clinical scope.</p></div></div></section>
 
-        <section className="contact-section" id="contact" aria-labelledby="contact-title">
-          <div className="container contact-inner">
-            <div className="contact-copy" data-reveal>
-              <span className="section-index">Take the next step</span>
-              <h2 id="contact-title">Let’s start a <em>conversation.</em></h2>
-              <p>Have a question or ready to begin? Pratheesh’s booking and contact details will be added here as soon as they are confirmed.</p>
-              <a className="button button-dark" href="#contact-options">View contact options <ArrowDown size={17} strokeWidth={1.8} /></a>
-            </div>
-            <div className="contact-options" id="contact-options" data-reveal>
-              <div className="contact-option"><CalendarDays size={22} strokeWidth={1.5} /><div><strong>Book an appointment</strong><span>Booking link to be added</span></div><span className="unavailable">Coming soon</span></div>
-              <div className="contact-option"><MessageCircle size={22} strokeWidth={1.5} /><div><strong>WhatsApp</strong><span>Number to be added</span></div><span className="unavailable">Coming soon</span></div>
-              <div className="contact-option"><Mail size={22} strokeWidth={1.5} /><div><strong>Email</strong><span>Address to be added</span></div><span className="unavailable">Coming soon</span></div>
-            </div>
-          </div>
-          <div className="container map-wrap" data-reveal>
-            <div className="map-placeholder"><div className="map-grid" aria-hidden="true" /><MapPin size={26} strokeWidth={1.3} /><strong>Location to be added</strong><span>A map and clinic address will appear here after confirmation.</span></div>
-          </div>
-        </section>
-      </main>
+      <section className="about-section section-pad" id="about" aria-labelledby="about-title"><div className="container about-layout"><div><h2 id="about-title">Meet Pratheesh.</h2><p className="about-lead">A personal introduction belongs here, in Pratheesh’s own words.</p></div><div className="about-detail"><p>His biography, qualifications, registration information and approach to care will be added after they are verified.</p><div className="pending-grid"><span><strong>Professional registration</strong>Details to be confirmed</span><span><strong>Qualifications & experience</strong>Details to be confirmed</span></div></div></div></section>
 
-      <footer className="site-footer">
-        <div className="container footer-inner"><Brand light /><p>Thoughtful care for movement and recovery.</p><a href="#top">Back to top <ArrowUpRight size={15} strokeWidth={1.7} /></a></div>
-        <div className="container footer-bottom"><span>© {new Date().getFullYear()} Pratheesh Physiotherapy</span><span>Professional details and contact information pending confirmation.</span></div>
-      </footer>
-    </div>
-  )
+      <section className="faq-section section-pad" id="faqs" aria-labelledby="faq-title"><div className="container faq-layout"><div><h2 id="faq-title">Common questions</h2><p>Helpful starting points before arranging a visit.</p></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary><span>{question}</span><ChevronDown size={20} aria-hidden="true" /></summary><p>{answer}</p></details>)}<div className="faq-pending"><strong>Practical details to follow</strong><p>Visit length, fees, referrals, availability and areas covered are awaiting confirmation.</p></div></div></div></section>
+
+      <section className="contact-section section-pad" id="contact" aria-labelledby="contact-title"><div className="container contact-layout"><div><h2 id="contact-title">Take the first step towards better mobility.</h2><p>If you are considering physiotherapy at home, contact details and booking options will appear here once they are confirmed.</p><a className="button button-light" href="#contact-details">View contact details <ArrowDown size={17} aria-hidden="true" /></a></div><div className="contact-panel" id="contact-details"><h3>Contact & visits</h3><div className="contact-line"><Phone size={19} aria-hidden="true" /><span><strong>Telephone & booking</strong>Number and booking link to be added</span><em>Pending</em></div><div className="contact-line"><Mail size={19} aria-hidden="true" /><span><strong>Email</strong>Business address to be added</span><em>Pending</em></div><div className="contact-line"><MapPin size={19} aria-hidden="true" /><span><strong>UK service area</strong>Towns and postcodes to be added</span><em>Pending</em></div><p className="contact-footnote">Fees, visit duration, cancellation terms and privacy information are also awaiting confirmation. No enquiry form collects personal health details at this stage.</p></div></div></section>
+    </main>
+    <footer className="footer"><div className="container footer-top"><Brand /><p>Home physiotherapy with everyday life in mind.</p><a href="#top">Back to top <ArrowUpRight size={16} aria-hidden="true" /></a></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Pratheesh Physiotherapy</span><span>Practice details and clinical scope pending confirmation.</span></div></footer>
+  </div>
 }
 
 export default App
