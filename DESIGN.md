@@ -1,5 +1,5 @@
 ---
-name: Pratheesh Physiotherapy
+name: Johnson George Physiotherapy
 description: Calm, clear information for UK home physiotherapy
 colors:
   ink: "#202322"
@@ -36,11 +36,11 @@ components:
 
 ## Overview
 
-The site is a quiet, modern information page for people considering physiotherapy at home. White and light grey surfaces, charcoal text, thin rules and a muted eucalyptus accent create a clear reading order. DM Sans is the only typeface. The hero photograph shows an illustrative home-care scene with faces outside the frame; it does not depict Pratheesh or actual patients.
+The site is a quiet, modern information page for people considering physiotherapy at home with Johnson George. White and light grey surfaces, charcoal text, thin rules and a muted eucalyptus accent create a clear reading order. DM Sans is the only typeface. The hero photograph is illustrative and does not depict Johnson or an actual patient.
 
-The hero gives one clear proposition and points to services and the visit process. Service information is grouped by need and expands on demand, so the long clinical list remains manageable. Draft and pending labels distinguish supplied generic copy from confirmed practice details. Contact details have no invented destinations.
+The hero leads with Johnson’s experience and gives one clear booking action. Confirmed services expand on demand, while professional credentials, coverage and direct contact options establish trust without inventing unconfirmed appointment terms.
 
-The service-area section replaces the broad audience section. A map and typographic place directory share the same three example locations; selecting a row focuses the map. The map tiles use a restrained greyscale treatment, while the full disclaimer and OpenStreetMap credit remain visible.
+The service-area section pairs Herefordshire and Worcestershire with an interactive regional map. Selecting a county focuses the map. Tiles use a restrained greyscale treatment, while the availability note and OpenStreetMap credit remain visible.
 
 Motion is limited to small hover and disclosure transitions, with a reduced-motion override. On narrow screens, the content becomes a single column and the navigation becomes an accessible toggle.
 
