@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowDown, ArrowRight, ArrowUpRight, Award, Check, ChevronDown, Mail, MapPin, Menu, MessageCircle, Phone, ShieldCheck, X } from 'lucide-react'
 import ServiceAreaMap from './ServiceAreaMap'
 
@@ -24,15 +24,56 @@ const faqs = [
   ['Are all physiotherapy services available?', 'Johnson currently provides musculoskeletal, older adult and frailty, post-operative and community physiotherapy. Paediatric and neurological physiotherapy are not currently offered.'],
 ]
 
+const heroImage = '/images/johnson-home-physiotherapy.png'
+
+function Monogram() {
+  return <svg viewBox="0 0 52 52" aria-hidden="true"><path className="monogram-j" d="M8 10h18v25c0 6-4 10-10 10-4 0-7-2-9-5"/><path className="monogram-g" d="M43 17c-3-5-7-7-12-7-8 0-14 7-14 16s6 16 15 16c5 0 9-2 12-5V27H32"/></svg>
+}
+
 function Brand() {
-  return <a className="brand" href="#top" aria-label="Johnson George Physiotherapy, back to top"><span className="brand-icon" aria-hidden="true"><svg viewBox="0 0 52 52"><path className="monogram-j" d="M8 10h18v25c0 6-4 10-10 10-4 0-7-2-9-5"/><path className="monogram-g" d="M43 17c-3-5-7-7-12-7-8 0-14 7-14 16s6 16 15 16c5 0 9-2 12-5V27H32"/></svg></span><span className="brand-name">Johnson George <small>Physiotherapy at home</small></span></a>
+  return <a className="brand" href="#top" aria-label="Johnson George Physiotherapy, back to top"><span className="brand-icon" aria-hidden="true"><Monogram /></span><span className="brand-name">Johnson George <small>Physiotherapy at home</small></span></a>
 }
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [loaderStage, setLoaderStage] = useState<'loading' | 'leaving' | 'done'>('loading')
   const closeMenu = () => setMenuOpen(false)
 
+  useEffect(() => {
+    let cancelled = false
+    let imageReady = false
+    let minimumElapsed = false
+    let leaving = false
+    const finish = () => {
+      if (cancelled || leaving || !imageReady || !minimumElapsed) return
+      leaving = true
+      setLoaderStage('leaving')
+    }
+    const minimumTimer = window.setTimeout(() => { minimumElapsed = true; finish() }, 650)
+    const fallbackTimer = window.setTimeout(() => {
+      if (!cancelled && !leaving) { leaving = true; setLoaderStage('leaving') }
+    }, 2200)
+    const image = new Image()
+    image.onload = image.onerror = () => { imageReady = true; finish() }
+    image.src = heroImage
+    if (image.complete) { imageReady = true; finish() }
+    return () => {
+      cancelled = true
+      image.onload = image.onerror = null
+      window.clearTimeout(minimumTimer)
+      window.clearTimeout(fallbackTimer)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (loaderStage !== 'leaving') return
+    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 480
+    const timer = window.setTimeout(() => setLoaderStage('done'), duration)
+    return () => window.clearTimeout(timer)
+  }, [loaderStage])
+
   return <div id="top" className="site-shell">
+    {loaderStage !== 'done' && <div className={`page-loader${loaderStage === 'leaving' ? ' is-leaving' : ''}`} role="status" aria-label="Loading Johnson George Physiotherapy"><div className="loader-content"><span className="loader-mark"><Monogram /></span><span className="loader-name">Johnson George</span><span className="loader-subtitle">Physiotherapy at home</span><span className="loader-track" aria-hidden="true"><span /></span></div></div>}
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header"><div className="container header-inner">
       <Brand />
@@ -42,7 +83,7 @@ function App() {
     </div></header>
 
     <main id="main">
-      <section className="hero container" aria-labelledby="hero-title"><div className="hero-copy"><p className="hero-credential">Senior physiotherapist · 26 years’ clinical experience</p><h1 id="hero-title">Expert physiotherapy, in the comfort of <span>your home.</span></h1><p>Personalised physiotherapy and rehabilitation across Herefordshire and Worcestershire, helping you improve mobility, regain function and maintain independence.</p><div className="hero-actions"><a className="button button-primary" href="tel:+447342941712">Call to discuss a visit <Phone size={18} aria-hidden="true" /></a><a className="quiet-link" href="#services">Explore services <ArrowDown size={17} aria-hidden="true" /></a></div></div><div className="hero-image-wrap"><img src="/images/johnson-home-physiotherapy.png" alt="An experienced physiotherapist guiding an older adult through a sit-to-stand exercise at home" width="1536" height="912" /><span className="image-note">Home-based assessment & rehabilitation</span></div></section>
+      <section className="hero container" aria-labelledby="hero-title"><div className="hero-copy"><p className="hero-credential">Senior physiotherapist · 26 years’ clinical experience</p><h1 id="hero-title">Expert physiotherapy, in the comfort of <span>your home.</span></h1><p>Personalised physiotherapy and rehabilitation across Herefordshire and Worcestershire, helping you improve mobility, regain function and maintain independence.</p><div className="hero-actions"><a className="button button-primary" href="tel:+447342941712">Call to discuss a visit <Phone size={18} aria-hidden="true" /></a><a className="quiet-link" href="#services">Explore services <ArrowDown size={17} aria-hidden="true" /></a></div></div><div className="hero-image-wrap"><img src={heroImage} alt="An experienced physiotherapist guiding an older adult through a sit-to-stand exercise at home" width="1536" height="912" fetchPriority="high" /><span className="image-note">Home-based assessment & rehabilitation</span></div></section>
 
       <section className="value-section" aria-labelledby="value-title"><div className="container value-layout"><div className="value-heading"><h2 id="value-title">Experience you can trust.</h2><p>Patient-centred, evidence-informed care shaped around your abilities and goals.</p></div><div className="value-points"><div><Award size={21} aria-hidden="true" /><span><strong>26 years’ experience</strong>Across national and international healthcare settings.</span></div><div><ShieldCheck size={21} aria-hidden="true" /><span><strong>Professionally registered</strong>HCPC registered and a CSP member.</span></div><div><Check size={21} aria-hidden="true" /><span><strong>Personal to you</strong>A practical plan for meaningful everyday progress.</span></div></div></div></section>
 
